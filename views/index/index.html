@@ -1,0 +1,28 @@
+<html>
+  <body>
+    <p>Here is a list:</p>
+    <!--
+      The render function resolves to an initial rendering of the specified client template(s),
+      plus everything (stored as data within <script> tags) needed by the client in order to
+      perform additional renders.
+
+      The syntax here is kind of unfortunate given how Go's HTML templates work, but effectively
+      what it's doing is defining a new div with id "list" whose contents are a rendering of 
+      "index/index.tmpl" with the state .InitialState, and alongside it a series of <script>
+      tags containing the text of the client template and its base6+gob-encoded initial state.
+
+      The syntax can be improved slightly by introducing a pattern such as functional options
+      (https://dave.cheney.net/2014/10/17/functional-options-for-friendly-apis), but at the cost
+      of making it more verbose, and Go templates can only be one line.
+    -->
+    {{render . .Templates "list" .InitialState "index/index.tmpl"}}
+
+    <p>
+      <form id="newItemForm">
+        <input type="text" placeholder="Add more items">
+      </form>
+    </p>
+  </body>
+
+  <script src="/static/index.js"></script>
+</html>
